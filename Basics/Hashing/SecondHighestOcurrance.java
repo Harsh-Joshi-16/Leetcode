@@ -5,20 +5,42 @@ import java.util.Map;
 
 public class SecondHighestOcurrance {
     public static int secondMostFrequentElement(int[] nums) {
-        Map<Integer, Integer> frequnceyMap = new HashMap<>();
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
         for (int num : nums) {
-            frequnceyMap.put(num, frequnceyMap.getOrDefault(num, 0) + 1);
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
         }
 
-        int secondMax = 0;
-        int mostFrequentKey = nums[0];
-        for (Map.Entry<Integer, Integer> map : frequnceyMap.entrySet()) {
-            System.out.println(map.getKey() + " " + map.getValue());
+        // Step 1: find max frequency
+        int max = 0;
+        for (int freq : frequencyMap.values()) {
+            max = Math.max(max, freq);
         }
-        return secondMax;
+
+        // Step 2: find the highest frequency less than max (secondMax)
+        int secondMax = 0;
+        for (int freq : frequencyMap.values()) {
+            if (freq < max) {
+                secondMax = Math.max(secondMax, freq);
+            }
+        }
+
+        // Step 3: if no secondMax found → return -1
+        if (secondMax == 0) {
+            return -1;
+        }
+
+        // Step 4: among numbers with frequency = secondMax, pick the smallest key
+        int secondMostFrequentKey = Integer.MAX_VALUE;
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() == secondMax) {
+                secondMostFrequentKey = Math.min(secondMostFrequentKey, entry.getKey());
+            }
+        }
+
+        return secondMostFrequentKey;
     }
 
     public static void main(String[] args) {
-        System.out.println(secondMostFrequentElement(new int[]{1, 1, 1, 2, 2, 3, 3}));
+        System.out.println(secondMostFrequentElement(new int[]{4, 4, 5, 5, 6, 7}));
     }
 }
