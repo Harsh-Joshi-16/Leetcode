@@ -2,15 +2,11 @@ package Basics.Recursion;
 
 public class Fibonacci {
     public static void main(String[] args) {
-        System.out.println(fib(3));
+        System.out.println(fib(10));
     }
 
     static int fib(int n) {
-        System.out.println(n);
-        if (n != 0) {
-            return fib(n - 1);
-        } else {
-            return 1;
-        }
+        if (n <= 1) return n;
+        return fib(n - 1) + fib(n - 2);
     }
 }
