@@ -68,7 +68,6 @@ public class RepeatingAndMissing {
 
         // Step 2 : Find rightmost set bit
         int rightmostSetBit = xorAll & -xorAll;
-        System.out.println(rightmostSetBit);
         int bucket1 = 0, bucket2 = 0;
         // Step 3: Divide into two buckets based on this bit
         for (int num : nums) {
